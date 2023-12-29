@@ -1,0 +1,87 @@
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Student and Graduate Create</title>
+</head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <section layout:fragment="body" class="py-5">
+        <div class="container">
+            <form role="form" method="post" th:action="@{/students/create}" th:object="${studentDto}">
+                <div class="row">
+                    <!-- Student Form Fields -->
+                    <div class="col-md-6">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="soCMND">Số CMND</label>
+                                <input type="text" class="form-control" id="soCMND" name="soCMND" th:field="*{soCMND}"
+                                       placeholder="Số CMND">
+                                <p th:if="${#fields.hasErrors('soCMND')}" class="text-danger" th:errors="*{soCMND}"></p>
+                            </div>
+                            <!-- Add other student form fields here -->
+                            <div class="form-group col-md-6">
+                                <label for="hoTen">Họ tên</label>
+                                <input type="text" class="form-control" id="hoTen" name="hoTen" th:field="*{hoTen}"
+                                       placeholder="Họ tên">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" id="email" name="email" th:field="*{email}"
+                                       placeholder="Email">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="soDT">Số Điện Thoại</label>
+                                <input type="text" class="form-control" id="soDT" name="soDT" th:field="*{soDT}"
+                                       placeholder="Số Điện Thoại">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="diaChi">Địa Chỉ</label>
+                                <input type="text" class="form-control" id="diaChi" name="diaChi" th:field="*{diaChi}"
+                                       placeholder="Địa Chỉ">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Graduate Form Fields -->
+                    <div class="col-md-6">
+                        <div class="form-row">
+                            <div class="form-group d-flex flex-column">
+                                <label for="maTruong">Trường:</label>
+                                <select class="w-50" id="maTruong" name="maTruong" required>
+                                    <option th:each="school : ${listOfSchools}" th:value="${school.maTruong}"
+                                            th:text="${school.tenTruong}"></option>
+                                </select><br>
+                            </div>
+                            <div class="form-group d-flex flex-column">
+                                <label for="maNganh">Ngành:</label>
+                                <select class="w-50" id="maNganh" name="maNganh" required>
+                                    <option th:each="majors : ${listOfMajors}" th:value="${majors.maNganh}"
+                                            th:text="${majors.tenNganh}"></option>
+                                </select><br>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="heTN">Hệ TN</label>
+                                <input type="text" class="form-control" id="heTN" name="heTN"  th:field="*{heTN}" placeholder="Hệ TN">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="ngayTN">Ngày TN</label>
+                                <input type="date" class="form-control" id="ngayTN" name="ngayTN" th:field="*{ngayTN}" placeholder="Ngày TN">
+                                <p th:if="${#fields.hasErrors('ngayTN')}" class="text-danger" th:errors="*{ngayTN}"></p>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="loaiTN">Loại TN</label>
+                                <input type="text" class="form-control" id="loaiTN" name="loaiTN" th:field="*{loaiTN}" placeholder="Loại TN">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Button for Both Student and Graduate -->
+                <button type="submit" class="btn btn-primary mt-3">Save</button>
+            </form>
+        </div>
+    </section>
+</main>
+</body>
+</html>
