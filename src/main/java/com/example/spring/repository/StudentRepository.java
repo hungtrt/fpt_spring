@@ -9,5 +9,4 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, String> {
     @Query("SELECT s from Student s WHERE s.soCMND LIKE CONCAT('%', :query, '%')")
     List<Student> searchStudents(String query);
-
 }

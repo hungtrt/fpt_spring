@@ -43,8 +43,6 @@ public class StudentServiceImpl implements StudentService {
                 .ngayTN(studentDto.getNgayTN())
                 .loaiTN(studentDto.getLoaiTN())
                 .build();
-
-        // Lưu Graduate
         graduateRepository.save(graduate);
         return student;
     }
@@ -119,7 +117,6 @@ public class StudentServiceImpl implements StudentService {
 
         return jdbcTemplate.queryForList(sql);
     }
-
 
     private StudentRequest mapToStudentDto(Student student) {
         StudentRequest studentDto = StudentRequest.builder()

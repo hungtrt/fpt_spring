@@ -24,12 +24,12 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     private SchoolResponse mapToSchoolDto(School school) {
-        SchoolResponse schoolDto = SchoolResponse.builder()
+        SchoolResponse schoolResponse = SchoolResponse.builder()
                 .maTruong(school.getMaTruong())
                 .tenTruong(school.getTenTruong())
                 .diaChi(school.getDiaChi())
                 .soDT(school.getSoDT())
                 .build();
-        return schoolDto;
+        return schoolResponse;
     }
 }

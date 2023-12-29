@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -32,27 +33,27 @@ public class StudentController {
 
     @GetMapping("/students/create")
     public String createStudentForm(Model model) {
-        StudentRequest studentDto = new StudentRequest();
+        StudentRequest studentRequest = new StudentRequest();
 
         List<SchoolResponse> listOfSchools = schoolService.getAllSchools();
         List<MajorsResponse> listOfMajors = majorsService.getAllMajors();
 
         model.addAttribute("listOfSchools", listOfSchools);
         model.addAttribute("listOfMajors", listOfMajors);
-        model.addAttribute("studentDto", studentDto);
+        model.addAttribute("studentDto", studentRequest);
 
         return "students-create";
     }
 
     @PostMapping("/students/create")
     public String saveStudent(@Valid @ModelAttribute("studentDto") StudentRequest studentDto, BindingResult result,
-                              Model model) {
+                              Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             model.addAttribute("listOfSchools", schoolService.getAllSchools());
             model.addAttribute("listOfMajors", majorsService.getAllMajors());
             return "students-create";
         }
-
+        redirectAttributes.addFlashAttribute("successMessage", "Lưu thành công!");
         studentService.saveStudentForm(studentDto);
         return "redirect:/students/create";
     }
@@ -66,8 +67,8 @@ public class StudentController {
 
     @GetMapping("/students/search-student")
     public String searchStudent(@RequestParam(value = "query") String query, Model model) {
-        List<StudentRequest> clubs = studentService.searchStudents(query);
-        model.addAttribute("students", clubs);
+        List<StudentRequest> studentRequests = studentService.searchStudents(query);
+        model.addAttribute("students", studentRequests);
         return "search-students";
     }
 
